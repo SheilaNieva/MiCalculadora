@@ -16,6 +16,7 @@
     <string name="botonMinus">-</string>
     <string name="botonClear">Clear</string>
     <string name="botonDiv">/</string>
+    <string name="botonIgual">=</string>
 
 
 </resources>
