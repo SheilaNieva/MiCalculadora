@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btMul.setOnClickListener(this)
         btDiv.setOnClickListener(this)
         btClear.setOnClickListener(this)
+        btEqual.setOnClickListener(this)
 
 
 
@@ -56,12 +57,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             bt8 -> onNumberPressed("8")
             bt9 -> onNumberPressed("9")
             btComma -> onNumberPressed(",")
-            btPlus -> onNumberPressed("")
-            btMinus -> onNumberPressed("-")
-            btMul -> onNumberPressed("x")
-            btDiv -> onNumberPressed("/")
-            btEqual -> onNumberPressed("=")
-            btClear -> onNumberPressed("Clear")
+            btPlus -> onOperationPressed("+")
+            btMinus -> onOperationPressed("-")
+            btMul -> onOperationPressed("x")
+            btDiv -> onOperationPressed("/")
+            btEqual -> onEqualPressed()
+            btClear -> ""
         }
     }
 
@@ -86,5 +87,31 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             firstNumber = screen.text.toString().toDouble()
         else
             secondNumber = screen.text.toString().toDouble()
+    }
+
+    private fun onOperationPressed(operation:String){
+        this.operation = operation
+        firstNumber = screen.text.toString().toDouble()
+        screen.text="0"
+
+    }
+
+    private fun onEqualPressed(){
+        val result  = when(operation){
+            "+" -> firstNumber + secondNumber
+            "-" -> firstNumber - secondNumber
+            "x" -> firstNumber * secondNumber
+            "/" -> firstNumber / secondNumber
+            else -> 0
+
+        }
+        operation = null
+        firstNumber = result.toString().toDouble()
+
+        screen.text = if(result.toString().endsWith(".0")){
+                result.toString().replace(".0", "")
+            }else {
+            "%.2f".format(result)
+        }
     }
 }
